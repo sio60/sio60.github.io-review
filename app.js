@@ -9,7 +9,8 @@
   const dialog = $('#review-dialog');
   const more = $('#load-more');
   const reviews = (window.HIMEDIA_REVIEWS?.reviews || []).map((review, index) => ({...review, index}));
-  const state = { query: '', topic: 'all', sort: 'newest', visible: PAGE_SIZE };
+  const state = { query: '', topic: 'all', background: 'all', sort: 'newest', visible: PAGE_SIZE };
+  const backgrounds = { highschool: '고졸 취업 스토리', nonmajor: '비전공자 취업 스토리', major: '전공자 취업 스토리' };
   let lastFocused = null;
 
   const el = (tag, className, text) => {
@@ -64,6 +65,7 @@
   function render() {
     const words = state.query.toLocaleLowerCase('ko').trim().split(/\s+/).filter(Boolean);
     const filtered = reviews.filter(review => {
+      if (state.background !== 'all' && review.background !== state.background) return false;
       if (state.topic !== 'all' && !review.tags.includes(state.topic)) return false;
       const text = [review.title, review.body, review.course, review.author, review.cohort, ...review.tags].join(' ').toLocaleLowerCase('ko');
       return words.every(word => text.includes(word));
@@ -71,16 +73,24 @@
       const comparison = (a.publishedAt || '').localeCompare(b.publishedAt || '');
       return (state.sort === 'oldest' ? comparison : -comparison) || a.index - b.index;
     });
-    const active = !!state.query.trim() || state.topic !== 'all';
+    const active = !!state.query.trim() || state.topic !== 'all' || state.background !== 'all';
     $('#total-count').textContent = reviews.length;
     $('#result-count').textContent = active ? `검색 결과 ${filtered.length}개 · 전체 ${reviews.length}개` : `전체 ${reviews.length}개의 이야기`;
     $('#reset-filters').hidden = !active;
     grid.replaceChildren(...filtered.slice(0, state.visible).map(card));
     $('#empty-state').hidden = filtered.length > 0;
+    const pendingCategory = state.background !== 'all' && !reviews.some(review => review.background === state.background);
+    $('#empty-state h3').textContent = pendingCategory ? `${backgrounds[state.background]}를 준비하고 있어요.` : '조건에 맞는 이야기가 없어요.';
+    $('#empty-state p').textContent = pendingCategory ? '새로운 이야기가 등록되면 이곳에서 만나보실 수 있어요.' : '다른 검색어를 입력하거나 전체 후기를 확인해 보세요.';
     more.hidden = filtered.length <= state.visible;
     more.textContent = `후기 더 보기 (${Math.min(state.visible, filtered.length)} / ${filtered.length}) ↓`;
     document.querySelectorAll('[data-topic]').forEach(button => {
       const selected = button.dataset.topic === state.topic;
+      button.classList.toggle('active', selected);
+      button.setAttribute('aria-pressed', String(selected));
+    });
+    document.querySelectorAll('[data-background]').forEach(button => {
+      const selected = button.dataset.background === state.background;
       button.classList.toggle('active', selected);
       button.setAttribute('aria-pressed', String(selected));
     });
@@ -89,6 +99,7 @@
   function resetFilters() {
     state.query = '';
     state.topic = 'all';
+    state.background = 'all';
     state.visible = PAGE_SIZE;
     search.value = '';
     render();
@@ -105,6 +116,7 @@
   search.addEventListener('input', () => { state.query = search.value; state.visible = PAGE_SIZE; render(); });
   sort.addEventListener('change', () => { state.sort = sort.value; state.visible = PAGE_SIZE; render(); });
   document.querySelectorAll('[data-topic]').forEach(button => button.addEventListener('click', () => { state.topic = button.dataset.topic; state.visible = PAGE_SIZE; render(); }));
+  document.querySelectorAll('[data-background]').forEach(button => button.addEventListener('click', () => { state.background = button.dataset.background; state.visible = PAGE_SIZE; render(); }));
   document.querySelectorAll('[data-review]').forEach(button => button.addEventListener('click', () => showReview(reviews.find(review => review.id === button.dataset.review))));
   $('#reset-filters').addEventListener('click', resetFilters);
   $('#empty-action').addEventListener('click', resetFilters);

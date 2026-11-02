@@ -11,6 +11,7 @@
   const reviews = (window.HIMEDIA_REVIEWS?.reviews || []).map((review, index) => ({...review, index}));
   const state = { query: '', topic: 'all', background: 'all', sort: 'newest', visible: PAGE_SIZE };
   const backgrounds = { highschool: '고졸 취업 스토리', nonmajor: '비전공자 취업 스토리', major: '전공자 취업 스토리' };
+  const belongsToBackground = (review, background) => (review.backgrounds || [review.background]).includes(background);
   let lastFocused = null;
 
   const el = (tag, className, text) => {
@@ -65,7 +66,7 @@
   function render() {
     const words = state.query.toLocaleLowerCase('ko').trim().split(/\s+/).filter(Boolean);
     const filtered = reviews.filter(review => {
-      if (state.background !== 'all' && review.background !== state.background) return false;
+      if (state.background !== 'all' && !belongsToBackground(review, state.background)) return false;
       if (state.topic !== 'all' && !review.tags.includes(state.topic)) return false;
       const text = [review.title, review.body, review.course, review.author, review.cohort, ...review.tags].join(' ').toLocaleLowerCase('ko');
       return words.every(word => text.includes(word));
@@ -79,7 +80,7 @@
     $('#reset-filters').hidden = !active;
     grid.replaceChildren(...filtered.slice(0, state.visible).map(card));
     $('#empty-state').hidden = filtered.length > 0;
-    const pendingCategory = state.background !== 'all' && !reviews.some(review => review.background === state.background);
+    const pendingCategory = state.background !== 'all' && !reviews.some(review => belongsToBackground(review, state.background));
     $('#empty-state h3').textContent = pendingCategory ? `${backgrounds[state.background]}를 준비하고 있어요.` : '조건에 맞는 이야기가 없어요.';
     $('#empty-state p').textContent = pendingCategory ? '새로운 이야기가 등록되면 이곳에서 만나보실 수 있어요.' : '다른 검색어를 입력하거나 전체 후기를 확인해 보세요.';
     more.hidden = filtered.length <= state.visible;

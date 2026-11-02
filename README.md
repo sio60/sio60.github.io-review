@@ -1,6 +1,6 @@
 # 하이미디어아카데미 수강 후기
 
-K-Digital 심화과정 수강 후기 7건을 제공된 `kdigital-reviews.html`에서 원문 그대로 옮긴 정적 사이트입니다. 후기 제목·본문·날짜는 원본 데이터를 유지합니다. 작성자 4명은 요청받은 마스킹 이름으로 수정했습니다.
+K-Digital 심화과정 수강 후기 7건을 제공된 `kdigital-reviews.html`에서 옮기고, 본인이 제공하고 공개를 요청한 김ㅇ나의 취업 후기 1건을 추가한 정적 사이트입니다. 기존 후기 제목·본문·날짜는 원본 데이터를 유지합니다. 작성자 이름은 요청받은 마스킹 표기를 사용합니다.
 
 ## 파일
 
@@ -18,6 +18,10 @@ K-Digital 심화과정 수강 후기 7건을 제공된 `kdigital-reviews.html`�
 
 게시 주소: https://sio60.github.io/sio60.github.io-review/
 
+대표 주소: https://himedia-gangnam.kr/reviews/
+
+GitHub는 소스와 미리보기를 유지합니다. 운영 도메인에는 공개 파일과 `assets/`만 배포하며 `.git` 및 작업 파일은 포함하지 않습니다.
+
 ## 후기 추가
 
 `reviews.js`의 `reviews` 배열에 고유한 `id`, `title`, `body`, `course`, `author`, `publishedAt`, `tags`를 추가합니다. 본문 문단은 `\n\n`으로 구분합니다. 지원하는 주제는 `커리큘럼`, `프로젝트`, `강사진`, `성장 이야기`입니다. 게시 전 후기 사용 동의와 개인정보를 확인하세요.
@@ -26,7 +30,7 @@ K-Digital 심화과정 수강 후기 7건을 제공된 `kdigital-reviews.html`�
 
 ## 취업 스토리 카테고리
 
-고졸 / 비전공자 / 전공자 카테고리가 준비되어 있습니다. 현재는 카테고리만 추가해 기존 후기에는 분류를 임의로 부여하지 않았습니다. 분류를 정한 후 `reviews.js`의 해당 후기에 `background`를 `highschool`, `nonmajor`, `major` 중 하나로 지정하면 됩니다.
+고졸 / 비전공자 / 전공자 카테고리가 준비되어 있습니다. 김ㅇ나 후기는 본인의 요청에 따라 `nonmajor`(비전공자)로 분류했습니다. 기존 후기는 분류를 임의로 부여하지 않았습니다. 분류를 정한 후 `reviews.js`의 해당 후기에 `background`를 `highschool`, `nonmajor`, `major` 중 하나로 지정하면 됩니다.
 
 ## 프로젝트와 커리큘럼
 

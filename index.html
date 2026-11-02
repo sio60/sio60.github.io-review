@@ -9,10 +9,12 @@
   <meta property="og:title" content="배운 다음, 달라진 이야기 | 하이미디어아카데미">
   <meta property="og:description" content="함께 만든 프로젝트부터 새로운 커리어까지. K-Digital 심화과정 수강생들의 경험을 만나보세요.">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="https://sio60.github.io/sio60.github.io-review/assets/project-presentation.jpg">
+  <link rel="canonical" href="https://himedia-gangnam.kr/reviews/">
+  <meta property="og:url" content="https://himedia-gangnam.kr/reviews/">
+  <meta property="og:image" content="https://himedia-gangnam.kr/reviews/assets/project-presentation.jpg">
   <link rel="icon" type="image/png" href="assets/himedia-logo.png">
   <link rel="stylesheet" href="styles.css?v=20261029">
-  <script src="reviews.js?v=20261029" defer></script>
+  <script src="reviews.js?v=20261102" defer></script>
   <script src="app.js?v=20261029" defer></script>
   <script src="projects.js?v=20261029" defer></script>
 </head>
@@ -44,7 +46,7 @@
     <section id="reviews" class="reviews-section" aria-labelledby="reviews-title">
       <div class="shell">
         <div class="section-kicker"><span>01 / THE REVIEW ARCHIVE</span><span>하이미디어를 경험한 사람들</span></div>
-        <div class="reviews-heading"><div><h2 id="reviews-title">각자의 시작, <br>우리의 다음.</h2><p>프로젝트부터 취업까지, 궁금했던 경험을 찾아보세요.</p></div><div class="archive-count"><span id="total-count">7</span><span>개의 이야기가<br>기다리고 있어요.</span></div></div>
+        <div class="reviews-heading"><div><h2 id="reviews-title">각자의 시작, <br>우리의 다음.</h2><p>프로젝트부터 취업까지, 궁금했던 경험을 찾아보세요.</p></div><div class="archive-count"><span id="total-count">8</span><span>개의 이야기가<br>기다리고 있어요.</span></div></div>
         <div class="story-categories" role="group" aria-label="취업 스토리 카테고리">
           <button type="button" data-background="all" class="story-category active" aria-pressed="true">전체 스토리 <span aria-hidden="true">↗</span></button>
           <button type="button" data-background="highschool" class="story-category" aria-pressed="false">고졸 취업 스토리 <span aria-hidden="true">↗</span></button>
@@ -61,7 +63,7 @@
           </div>
           <form id="search-form" class="search-box" role="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><label class="sr-only" for="search-input">후기 검색</label><input id="search-input" type="search" placeholder="궁금한 이야기를 검색하세요" autocomplete="off" maxlength="150"></form>
         </div>
-        <div class="result-row"><p id="result-count" role="status" aria-live="polite">전체 7개의 이야기</p><div><button id="reset-filters" type="button" hidden>필터 초기화 ↺</button><label><span class="sr-only">후기 정렬</span><select id="sort-select"><option value="newest">최신 등록순</option><option value="oldest">오래된 등록순</option></select></label></div></div>
+        <div class="result-row"><p id="result-count" role="status" aria-live="polite">전체 8개의 이야기</p><div><button id="reset-filters" type="button" hidden>필터 초기화 ↺</button><label><span class="sr-only">후기 정렬</span><select id="sort-select"><option value="newest">최신 등록순</option><option value="oldest">오래된 등록순</option></select></label></div></div>
         <div id="review-grid" class="review-grid"></div>
         <div id="empty-state" class="empty-state" hidden><span aria-hidden="true">“ ”</span><h3>조건에 맞는 이야기가 없어요.</h3><p>다른 검색어를 입력하거나 전체 후기를 확인해 보세요.</p><button id="empty-action" type="button">전체 후기 보기 ↗</button></div>
         <button id="load-more" class="load-more" type="button" hidden>후기 더 보기 ↓</button>
